@@ -5,14 +5,15 @@ import sys
 
 sys.path.append('..')
 import idna.compat
+import six
 
 class IDNACompatTests(unittest.TestCase):
 
     def testToASCII(self):
-        self.assertEqual(idna.compat.ToASCII(u'\u30c6\u30b9\u30c8.xn--zckzah'), b'xn--zckzah.xn--zckzah')
+        self.assertEqual(idna.compat.ToASCII(six.u('\u30c6\u30b9\u30c8.xn--zckzah')), b'xn--zckzah.xn--zckzah')
 
     def testToUnicode(self):
-        self.assertEqual(idna.compat.ToUnicode(b'xn--zckzah.xn--zckzah'), u'\u30c6\u30b9\u30c8.\u30c6\u30b9\u30c8')
+        self.assertEqual(idna.compat.ToUnicode(b'xn--zckzah.xn--zckzah'), six.u('\u30c6\u30b9\u30c8.\u30c6\u30b9\u30c8'))
 
     def test_nameprep(self):
         self.assertRaises(NotImplementedError, idna.compat.nameprep, "a")

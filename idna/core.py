@@ -2,10 +2,11 @@ from . import idnadata
 import unicodedata
 import re
 import sys
+import six
 
 _virama_combining_class = 9
 _alabel_prefix = b'xn--'
-_unicode_dots_re = re.compile(u'[\u002e\u3002\uff0e\uff61]')
+_unicode_dots_re = re.compile(six.u('[\u002e\u3002\uff0e\uff61]'))
 
 if sys.version_info[0] == 3:
     unicode = str
@@ -207,7 +208,7 @@ def valid_contexto(label, pos, exception=False):
 
     elif cp_value == 0x30fb:
         for cp in label:
-            if cp == u'\u30fb':
+            if cp == six.u('\u30fb'):
                 continue
             if not _is_script(cp, 'Hiragana') and not _is_script(cp, 'Katakana') and not _is_script(cp, 'Han'):
                 return False
@@ -332,7 +333,7 @@ def decode(s, strict=False):
         if not strict:
             labels = _unicode_dots_re.split(s)
         else:
-            labels = s.split(u'.')
+            labels = s.split(six.u('.'))
     if not labels[-1]:
         labels = labels[0:-1]
         trailing_dot = True
@@ -341,5 +342,5 @@ def decode(s, strict=False):
     for label in labels:
         result.append(ulabel(label))
     if trailing_dot:
-        result.append(u'')
-    return u'.'.join(result)
+        result.append(six.u(''))
+    return six.u('.').join(result)

@@ -16,6 +16,7 @@ import re
 import sys
 sys.path.append('..')
 import idna
+import six
 
 test_path = os.path.abspath(os.path.dirname(__file__))
 
@@ -43,7 +44,7 @@ def expand_unicode_notation(s):
 
 def split_labels(s):
 
-    yield re.compile(u"[\u002E\u3002\uFF0E\uFF61]").split(input)
+    yield re.compile(six.u("[\u002E\u3002\uFF0E\uFF61]")).split(input)
 
 class TR46Tests(unittest.TestCase):
 
